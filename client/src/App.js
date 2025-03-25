@@ -3,6 +3,8 @@ import './App.css';
 import MovieList from './Components/MovieList';
 import styled from "styled-components";
 import movieBackground from "./images/Shwartc2.jpg";
+import { useState } from "react";
+
 // Адаптивный контейнер
 const Container = styled.div`
   display: flex;
@@ -79,7 +81,21 @@ const Button = styled.button`
   }
 `;
 
+const a = [
+  "1. Жим штанги лежа                        4 по (7-10)",
+  "2. Жим гантелей вверх стоя перед собой    4 по (7-10)",
+  "3. Тяга штанги в наклоне (спина)          4 по (7-10)",
+  "4. Подъем гантелей на бицепс стоя         4 по (7-10)",
+  "5. Французский жим гантелей сидя трицепс  4 по (10-12)",
+  "6. Приседания со штангой                  4 по (7-10)",
+  "7. Становая тяга                          3 по (10-12)",
+  "8. Подъем ног перед собой в висе (пресс)  3 по (20-25)"
+];
+
 function App() {
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Container>
       <Title>DEV-UNIVER.VERCEL.APP</Title>
@@ -95,7 +111,79 @@ function App() {
         />
       <Text>Программы тренировок в зале для начинающих и более опытных спортсменов</Text>
       
-      <Button>Общая  #1</Button><br></br>
+      <Button onClick={() => setIsOpen(true)}>Общая  #1</Button><br></br>
+      {isOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "#B0E0E6", // Светло-голубой фон
+              padding: "20px",
+              borderRadius: "10px",
+              width: "400px",
+              position: "relative",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              textAlign: "center",
+            }}
+          >
+            {/* Кнопка-крестик (Закрыть) */}
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                background: "transparent",
+                border: "none",
+                fontSize: "20px",
+                cursor: "pointer",
+                color: "#333",
+              }}
+            >
+              ❌
+            </button>
+
+            {/* Текст в модальном окне */}
+            <h2 style={{ color: "#004080" }}>Программа тренировки</h2>
+            <h2 style={{ color: "#004080" }}>отдых 2-3 мин</h2>
+            <p style={{ color: "#003366" }}>
+            <ul>
+        {a.map((exercise, index) => (
+          <li key={index}>{exercise}</li>
+        ))}
+            </ul>
+            </p>
+
+            {/* Кнопка закрытия */}
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                marginTop: "15px",
+                padding: "8px 16px",
+                fontSize: "14px",
+                background: "#3399FF",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <Button style={{ background: "#FFA500" }}>Общая  #2</Button><br></br>
       <Button style={{ background: "#B8860B" }}>Общая  #3</Button><br></br>
       <Button style={{ background: "#32CD32" }}>Плечи руки</Button><br></br>
