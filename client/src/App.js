@@ -4,6 +4,7 @@ import MovieList from './Components/MovieList';
 import styled from "styled-components";
 import movieBackground from "./images/Shwartc2.jpg";
 import { useState } from "react";
+import { ClipLoader } from "react-spinners"; // Импортируем спиннер
 
 // Адаптивный контейнер
 const Container = styled.div`
@@ -94,7 +95,16 @@ const a = [
 
 function App() {
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsOpen(true);
+    }, 1150); // Спиннер работает 1.5 секунды перед появлением окна
+  };
 
   return (
     <Container>
@@ -111,7 +121,16 @@ function App() {
         />
       <Text>Программы тренировок в зале для начинающих и более опытных спортсменов</Text>
       
-      <Button onClick={() => setIsOpen(true)}>Общая  #1</Button><br></br>
+      <Button onClick={handleOpenModal}>Общая  #1</Button><br></br>
+
+     {/* Спиннер (пока загружается) */}
+     {isLoading && (
+        <div style={{ marginTop: "20px" }}>
+          <ClipLoader color="#004080" size={150} /> 
+        </div>
+      )}
+
+
       {isOpen && (
         <div
           style={{
@@ -182,6 +201,8 @@ function App() {
               Close
             </button>
           </div>
+
+
         </div>
       )}
       <Button style={{ background: "#FFA500" }}>Общая  #2</Button><br></br>
